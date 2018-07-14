@@ -249,6 +249,7 @@ RxFlexModal.Layout = function (config) {
         removed = false,
         detached = false,
         attached = false,
+        _sticky = null;
         LayoutEvents = new RxFlexModal.RxListenerManager();
 
     self.loader = {
@@ -450,6 +451,9 @@ RxFlexModal.Layout = function (config) {
         if (self.getConfig(config, 'header.center')) {
             self.setHeaderCenter(self.getConfig(config, 'header.center'));
         }
+
+        self.setSticky(self.getConfig(config, 'header.sticky'));
+
     };
 
     /*Methods*/
@@ -486,6 +490,21 @@ RxFlexModal.Layout = function (config) {
             self.$header_right.html(content);
         }
     };
+    self.setSticky = function (sticky) {
+        _sticky = sticky;
+        if (_sticky) {
+            var header_height = self.getConfig(config.config, 'header.height'),prevPos = 0;
+            self.$content.scroll(function(){
+                if(_sticky) {
+                    var m = parseInt(self.$header.css('margin-top'));
+                    self.$header.css('margin-top', Math.min(0, Math.max((header_height * (-1)), m - (this.scrollTop - prevPos))));
+                    prevPos = this.scrollTop;
+                }
+            });
+        }else {
+            self.$header.css('margin-top',0);
+        }
+    };
 
     /*Getters*/
     self.getHeaderCenter = function () {
@@ -506,6 +525,7 @@ RxFlexModal.Layout.defaultConfig = {
     config: {
         header: {
             visible: true,
+            sticky:false,
             height: 70,
             title: "",
             close_button: false,

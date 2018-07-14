@@ -62,8 +62,9 @@ var page3 = new RxFlexModal.Layout({
     config: {
         permanently: true,
         header: {
+            sticky:true,
             visible: true,
-            height: 90,
+            height: 120,
             right: [
                 new RxFlexModal.HeaderButton({
                     type: "icon",
@@ -92,21 +93,23 @@ var page3 = new RxFlexModal.Layout({
             }, 1000);
         });
 
-        /*Layout.$wrapper.on("click",'.push', function (e) {
-
-        });*/
+        Layout.$wrapper.on("click",'.push', function (e) {
+            Layout.setSticky(false);
+        });
 
         Layout.getHeaderCenter().addClass('_shadow');
         Layout.setHeaderCenter(
             new RxFlexModal.HorizontalScrollableElement({
                 ref:"peoples",
                 width:60,
-                items:["test1","test2","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5"],
+                items:["Kalys Rysmendeev","David Blabla","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5"],
                 renderItem: function (item) {
                     return `
                         <div class="user_item_55555">
                             <span class="user_item_55555_img"></span>
-                            <span class="user_item_55555_name">${item}</span>
+                            
+                             <span class="user_item_55555_name">${item}</span>
+                           
                         </div>
                         `;
                 },
