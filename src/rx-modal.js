@@ -248,7 +248,7 @@ RxFlexModal.Layout = function (config) {
         removed = false,
         detached = false,
         attached = false,
-        _sticky = null;
+        _sticky = null,
         LayoutEvents = new RxFlexModal.RxListenerManager();
 
     self.loader = {
