@@ -307,7 +307,7 @@ RxFlexModal.Layout = function (config) {
         return removed;
     };
     self.isPermanently = function () {
-        return config.config.permanently;
+        return config.config && config.config.permanently;
     };
 
     self.init = function (params) {
