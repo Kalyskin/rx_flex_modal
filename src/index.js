@@ -59,6 +59,9 @@ var page2 = new RxFlexModal.Layout({
     },
 });
 var page3 = new RxFlexModal.Layout({
+    popup_config: {
+        position: RxFlexModal.CONST.POSITION_CENTER,
+    },
     config: {
         permanently: true,
         header: {
@@ -71,6 +74,12 @@ var page3 = new RxFlexModal.Layout({
                     icon: "sprtrx-icon-cancel",
                     dispatchEvent: "cancel_click",
                     ref: "cancelBtn"
+                }),
+                new RxFlexModal.HeaderButton({
+                    type: "button",
+                    text: "close",
+                    dispatchEvent: "cancel_click",
+                    ref: "cancelBtn2"
                 })
             ]
         },

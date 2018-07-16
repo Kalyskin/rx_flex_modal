@@ -6,6 +6,7 @@
     top: 0;
     width: 100%;
     background: #ffffff;
+    transition: .3s;
 }
 
 body.rx_flex_open {
@@ -80,6 +81,7 @@ body.rx_flex_open.rx_modal_full_screen {
 }
 .rx__flex_modal__header__right {
     justify-content: flex-end;
+    align-items: center;
 }
 
 .rx__flex_modal__content__content > *:last-child {
@@ -160,10 +162,11 @@ body.rx_flex_open.rx_modal_full_screen {
 }
 
 .rx__flex_modal__header__button {
-    margin: 15px 15px 15px 5px;
     font-size: 14px;
     line-height: 0;
+    margin: 0 8px;
     text-align: center;
+    height: 32px;
 }
 
 @keyframes lds-dual-ring {
@@ -188,6 +191,7 @@ body.rx_flex_open.rx_modal_full_screen {
     background: #00000085;
     position: fixed;
     z-index: 999999999;
+    transition: .3s;
 }
 
 .rx__flex_modal__backdrop.rx__flex_modal__backdrop__left {
@@ -210,6 +214,7 @@ body.rx_flex_open.rx_modal_full_screen {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
 }
 
 .rx__flex_modal__HorizontalScrollableElement_item {
@@ -266,6 +271,50 @@ span.user_item_55555_name {
     overflow: hidden;
     height: 2.5em;
 }
+.rx__flex_modal__backdrop.__anim_start {
+    background-color: #00000000;
+}
+
+.rx__flex_modal__backdrop.rx__flex_modal__backdrop__right .rx__flex_modal {
+    display:  flex;
+    margin-right: -400px;
+}
+
+.rx__flex_modal__backdrop.rx__flex_modal__backdrop__right .rx__flex_modal.open {
+    margin-right: 0;
+}
+
+.rx_modal_full_screen .rx__flex_modal__backdrop.rx__flex_modal__backdrop__right .rx__flex_modal {
+    margin-right: 0;
+    display: flex;
+    left: initial;
+    right: -100%;
+}
+.rx_modal_full_screen .rx__flex_modal__backdrop.rx__flex_modal__backdrop__right .rx__flex_modal.open {
+    right: 0;
+}
+
+
+
+
+.rx__flex_modal__backdrop.rx__flex_modal__backdrop__left .rx__flex_modal {
+    display:  flex;
+    margin-left: -400px;
+}
+
+.rx__flex_modal__backdrop.rx__flex_modal__backdrop__left .rx__flex_modal.open {
+    margin-left: 0;
+}
+
+.rx_modal_full_screen .rx__flex_modal__backdrop.rx__flex_modal__backdrop__left .rx__flex_modal {
+    margin-right: 0;
+    display: flex;
+    right: initial;
+    left: -100%;
+}
+.rx_modal_full_screen .rx__flex_modal__backdrop.rx__flex_modal__backdrop__left .rx__flex_modal.open {
+    left: 0;
+}
 
 @media (min-width: 600px) {
     .rx__flex_modal__backdrop.rx__flex_modal__backdrop__center #rx__flex_modal {
@@ -282,6 +331,8 @@ span.user_item_55555_name {
         height: 100%;
     }
 }
+
+
 
 @media (min-width: 801px) {
 

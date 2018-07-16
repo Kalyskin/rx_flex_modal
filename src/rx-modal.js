@@ -110,8 +110,11 @@ RxFlexModal = {
             that.setPosition(that.getConfig(config, 'popup_config.position'));
             self.close_on_backdrop_click = that.getConfig(config, 'popup_config.close_on_backdrop_click');
         }
-        self.$modal_backdrop.show();
-        self.$modal.addClass('open');
+        self.$modal_backdrop.addClass('__anim_start').show();
+        setTimeout(function () {
+            self.$modal.addClass('open');
+            self.$modal_backdrop.removeClass('__anim_start')
+        },0);
         self.$body.addClass('rx_flex_open');
         that.setSize();
         if (config instanceof RxFlexModal.Layout) {
@@ -142,7 +145,8 @@ RxFlexModal = {
     setPosition: function (position) {
         var self = this.__, that = this;
         self.$modal_backdrop.removeClass('rx__flex_modal__backdrop__left')
-            .removeClass('rx__flex_modal__backdrop__right');
+            .removeClass('rx__flex_modal__backdrop__right')
+            .removeClass('rx__flex_modal__backdrop__center');
         switch (position) {
             case RxFlexModal.CONST.POSITION_LEFT:
                 self.$modal_backdrop.addClass('rx__flex_modal__backdrop__left');
@@ -189,7 +193,10 @@ RxFlexModal = {
         self.$modal.removeClass('open').removeClass('full_screen');
         self.$body.removeClass('rx_flex_open');
         window.scrollTo(0, self.scrollTop || 0);
-        self.$modal_backdrop.hide();
+        self.$modal_backdrop.addClass('__anim_start');
+        setTimeout(function () {
+            self.$modal_backdrop.hide();
+        },300);
         self.layouts.map(function (_layout, index) {
             if (_layout.isPermanently()) {
                 _layout.detach();
