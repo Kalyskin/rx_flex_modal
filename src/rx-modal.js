@@ -125,7 +125,6 @@ RxFlexModal = {
             });
             self.layouts.map(function (_layout) {
                 _layout.remove();
-                delete _layout;
             });
             self.layouts = [];
             self.layouts.push(that.currentLayout);

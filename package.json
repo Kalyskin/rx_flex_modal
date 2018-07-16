@@ -1,0 +1,39 @@
+{
+  "name": "modal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rx-modal.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kalyskin/rx_flex_modal.git"
+  },
+  "keywords": [
+    "modal",
+    "popup",
+    "mobile"
+  ],
+  "author": "Kalys",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kalyskin/rx_flex_modal/issues"
+  },
+  "homepage": "https://github.com/Kalyskin/rx_flex_modal#readme",
+  "devDependencies": {
+    "autoprefixer": "^8.6.5",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "postcss-loader": "^2.1.6",
+    "uglifyjs-webpack-plugin": "^1.2.7",
+    "webpack": "^4.16.0",
+    "webpack-cli": "^3.0.8"
+  },
+  "dependencies": {
+    "style-loader": "^0.21.0"
+  }
+}
