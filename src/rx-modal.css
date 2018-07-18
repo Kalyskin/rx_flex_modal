@@ -77,16 +77,16 @@ body.rx_flex_open.rx_modal_full_screen {
     width: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 50px;
+    z-index: 99;
 }
 .rx__flex_modal__header__right {
     justify-content: flex-end;
     align-items: center;
 }
 
-.rx__flex_modal__content__content > *:last-child {
+/*.rx__flex_modal__content__content > *:last-child {
     margin-bottom: 80px;
-}
+}*/
 
 .rx__flex_modal__loader.hidden {
     display: none;

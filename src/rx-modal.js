@@ -336,6 +336,11 @@ RxFlexModal.Layout = function (config) {
             if (config.content_script && typeof config.content_script === 'function') {
                 config.content_script(self);
             }
+            if(self.$content.length && self.$content[0]) {
+                self.$content[0].addEventListener('touchmove', function (e) {
+                    self.$content.focus();
+                }, false);
+            }
         }
         initialized = true;
     };
@@ -500,10 +505,21 @@ RxFlexModal.Layout = function (config) {
         _sticky = sticky;
         if (_sticky) {
             var header_height = self.getConfig(config.config, 'header.height'),prevPos = 0;
+            var scrollHeight = 0;
+            var __sticky = true;
             self.$content.scroll(function(){
-                if(_sticky) {
+                if(_sticky && __sticky) {
+                    scrollHeight = this.scrollHeight - this.clientHeight;
                     var m = parseInt(self.$header.css('margin-top'));
-                    self.$header.css('margin-top', Math.min(0, Math.max((header_height * (-1)), m - (this.scrollTop - prevPos))));
+                    if(this.scrollTop < scrollHeight) {
+                        if(this.scrollTop > 0) {
+                            self.$header.css('margin-top', Math.min(0, Math.max((header_height * (-1)), m - (this.scrollTop - prevPos))));
+                        }else {
+                            self.$header.css('margin-top',0);
+                        }
+                    }else {
+                        self.$header.css('margin-top',(header_height * (-1)));
+                    }
                     prevPos = this.scrollTop;
                 }
             });
