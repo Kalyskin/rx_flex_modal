@@ -85,11 +85,14 @@ var page3 = new RxFlexModal.Layout({
         },
     },
     content_script: function (Layout) {
-        Layout.setContent(new RxFlexModal.Promise(function (resolve, reject) {
+        /*Layout.setContent(new RxFlexModal.Promise(function (resolve, reject) {
             setTimeout(function () {
                 resolve(`<p id='pp11' style='padding: 5px'>${text}<button class='push'>Push</button></p>`);
             }, 1000);
-        }));
+        }));*/
+        setTimeout(function () {
+            Layout.setContent("<p id='pp11' style='padding: 5px'><script>console.log('I m HERE')</script>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, ipsum laborum minus odio quidem similique sunt tempora totam? Amet delectus esse expedita illum ratione, repudiandae. A dignissimos ea esse ipsam laboriosam magni nesciunt nobis non quam quis quisquam quos, reiciendis soluta temporibus ut. Doloribus, eius, quod? Adipisci amet aperiam architecto aspernatur aut beatae cumque debitis delectus deleniti earum eius error ex, fugiat illo iste laborum natus quibusdam quidem quisquam quos rem repellendus vel voluptatem. Consequuntur deleniti dolores, doloribus eaque ex minus mollitia nulla numquam odio pariatur quae qui quibusdam repudiandae saepe suscipit veniam voluptas! Alias delectus deserunt, eius enim expedita facilis, fuga illum iure libero nam nihil omnis perferendis totam ullam vitae voluptates voluptatibus. Dignissimos eligendi mollitia omnis sed sequi. Accusamus beatae consectetur consequatur corporis debitis dicta distinctio, dolorem eaque eius eligendi et fuga ipsam libero mollitia nam necessitatibus possimus quaerat qui sequi vitae! Corporis delectus dolor, dolore ea earum est facere laborum nulla numquam officia, quo saepe sint soluta tenetur ullam? Accusantium aperiam blanditiis consequatur consequuntur debitis deserunt dicta dolor doloribus eos facere facilis, harum itaque, libero modi molestiae molestias nam natus nihil nulla odio qui quia quis quisquam ratione sequi similique tempora tempore. Dolor, eveniet veniam.</p>");
+        }, 1000);
 
         Layout.on("cancel_click", function (e) {
             Layout._actions.handleClose();
