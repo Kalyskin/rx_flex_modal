@@ -119,6 +119,7 @@ var page3 = new RxFlexModal.Layout({
                 console.log(action);
             })
         });
+
         Layout.on("user_item_click", function (e) {
             RxFlexModal.alert( "Error on load content!").then(function (action) {
                 console.log(action);

@@ -374,6 +374,7 @@ body.rx_flex_open.rx_modal_full_screen {
     background:  #fff;
     color:  #555;
     border-radius:  0;
+    border: none;
     border-right:  1px solid #ccc;
     margin:  0;
     padding:  10px;
@@ -389,8 +390,6 @@ body.rx_flex_open.rx_modal_full_screen {
     display:  flex;
     background: #0000;
 }
-/*
-.rx__flex_modal__backdrop.rx__flex_modal__backdrop__right .rx__flex_modal__layer {
-    width:  400px;
-    right: 0;
-}*/
+.rx__flex_modal__layer__content__actionscontent button:last-child {
+    border-right: none;
+}
