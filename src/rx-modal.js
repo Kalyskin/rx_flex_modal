@@ -83,6 +83,7 @@ RxFlexModal = {
         self.$modal = $('#rx__flex_modal');
         self.$body = $(document.body);
         self.$layout_template = self.$modal.find('.rx__flex_modal__layout').clone();
+        self.$layer = self.$modal.find('.rx__flex_modal__layer');
         self.$modal.find('.rx__flex_modal__layout').remove();
         self.newID = function () {
             return _id++;
@@ -96,6 +97,14 @@ RxFlexModal = {
                 if($(e.target).closest('.rx__flex_modal').length === 0 && !$(e.target).hasClass('.rx__flex_modal')){
                     that.close();
                 }
+            }
+        });
+        self.$layer.click(function (e) {
+            if($(e.target).closest('.rx__flex_modal__layer__content').length === 0 && !$(e.target).hasClass('.rx__flex_modal__layer__content')){
+                self.$layer.addClass('hidden');
+                setTimeout(function () {
+                    self.$layer.removeClass('_start_anim');
+                },200);
             }
         });
         return that;
@@ -133,6 +142,42 @@ RxFlexModal = {
             self.layouts.push(that.currentLayout);
             that.currentLayout.show();
         }
+    },
+    alert: function(options){
+        var self = this.__, that = this;
+        var $content_text = self.$layer.find('.rx__flex_modal__layer__content__textcontent');
+        var $content_actions = self.$layer.find('.rx__flex_modal__layer__content__actionscontent');
+        if(typeof options === "string"){
+            $content_text.text(options);
+            $content_actions.html('<button data-action="ok">ok</button>');
+        }else if(typeof options === "object") {
+            if('text' in options){
+                $content_text.html(options.text);
+            }else {
+                $content_text.html("  ");
+            }
+            if('actions' in options && Array.isArray(options.actions)){
+                $content_actions.html("");
+                options.actions.map(function (item) {
+                    $content_actions.append('<button data-action="'+item.action+'">'+item.text+'</button>');
+                })
+            }
+        }
+        return new RxFlexModal.Promise(function (resoleve,reject) {
+            $content_actions.find('button').click(function (e) {
+                self.$layer.addClass('hidden');
+                setTimeout(function () {
+                    self.$layer.removeClass('_start_anim');
+                },200);
+                resoleve($(this).data('action'));
+            });
+            //self.$layer.removeClass('_start_anim');
+            self.$layer.addClass('_start_anim');
+            setTimeout(function () {
+                self.$layer.removeClass('hidden');
+            },0);
+
+        });
     },
     setSize: function () {
         var self = this.__, that = this;

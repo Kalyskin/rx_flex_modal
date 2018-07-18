@@ -60,7 +60,7 @@ var page2 = new RxFlexModal.Layout({
 });
 var page3 = new RxFlexModal.Layout({
     popup_config: {
-        position: RxFlexModal.CONST.POSITION_RIGHT,
+        position: RxFlexModal.CONST.POSITION_CENTER,
     },
     config: {
         permanently: true,
@@ -111,9 +111,18 @@ var page3 = new RxFlexModal.Layout({
 
 
         Layout.on("cancel_click", function (e) {
-            Layout._actions.handleClose();
+            /*Layout._actions.handleClose();*/
+            RxFlexModal.alert({
+                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo ",
+                actions:[{text:"cancel",action:"cancel"},{text:"ok",action:"ok"}]
+            }).then(function (action) {
+                console.log(action);
+            })
         });
         Layout.on("user_item_click", function (e) {
+            RxFlexModal.alert( "Error on load content!").then(function (action) {
+                console.log(action);
+            });
             console.log(e.target);
             Layout.loader.on();
             setTimeout(function () {
