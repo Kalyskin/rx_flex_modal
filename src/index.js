@@ -123,12 +123,13 @@ var page3 = new RxFlexModal.Layout({
         Layout.on("user_item_click", function (e) {
             RxFlexModal.alert( "Error on load content!").then(function (action) {
                 console.log(action);
+                Layout.loader.on();
+                setTimeout(function () {
+                    Layout.loader.off();
+                }, 1000);
             });
             console.log(e.target);
-            Layout.loader.on();
-            setTimeout(function () {
-                Layout.loader.off();
-            }, 1000);
+
         });
 
         Layout.$wrapper.on("click",'.push', function (e) {

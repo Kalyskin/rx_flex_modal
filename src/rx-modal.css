@@ -328,7 +328,7 @@ body.rx_flex_open.rx_modal_full_screen {
     display:  flex;
     height:  100%;
     width:  100%;
-    background: #00000061;
+    background: rgba(0,0,0,0.40);
     z-index: 999;
     justify-content: center;
     align-items: center;
@@ -361,6 +361,8 @@ body.rx_flex_open.rx_modal_full_screen {
     font-size: 18px;
     line-height: 1;
     font-family:  unset;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
 }
 
 .rx__flex_modal__layer__content__actionscontent {
@@ -388,7 +390,7 @@ body.rx_flex_open.rx_modal_full_screen {
 }
 .rx__flex_modal__layer.hidden._start_anim {
     display:  flex;
-    background: #0000;
+    background: rgba(0,0,0,0)
 }
 .rx__flex_modal__layer__content__actionscontent button:last-child {
     border-right: none;
