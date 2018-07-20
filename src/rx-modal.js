@@ -99,12 +99,27 @@ RxFlexModal = {
                 }
             }
         });
+        self.closeLayer = function(){
+            self.$layer.addClass('hidden');
+            self.$layer.find('.rx__flex_modal__layer__content__textcontent').html("");
+            setTimeout(function () {
+                self.$layer.removeClass('_start_anim').removeClass('_as_menu');
+                self.layer_active = false;
+            },200);
+            setTimeout(function () {
+                self.layer_active = false;
+            },300);
+        };
+        self.showLayer = function(){
+            self.$layer.addClass('_start_anim');
+            setTimeout(function () {
+                self.$layer.removeClass('hidden');
+                self.layer_active = true;
+            },0);
+        };
         self.$layer.click(function (e) {
             if($(e.target).closest('.rx__flex_modal__layer__content').length === 0 && !$(e.target).hasClass('.rx__flex_modal__layer__content')){
-                self.$layer.addClass('hidden');
-                setTimeout(function () {
-                    self.$layer.removeClass('_start_anim');
-                },200);
+                self.closeLayer();
             }
         });
         return that;
@@ -145,6 +160,7 @@ RxFlexModal = {
     },
     alert: function(options){
         var self = this.__, that = this;
+        self.$layer.removeClass('_as_menu');
         var $content_text = self.$layer.find('.rx__flex_modal__layer__content__textcontent');
         var $content_actions = self.$layer.find('.rx__flex_modal__layer__content__actionscontent');
         if(typeof options === "string"){
@@ -165,18 +181,30 @@ RxFlexModal = {
         }
         return new RxFlexModal.Promise(function (resoleve,reject) {
             $content_actions.find('button').click(function (e) {
-                self.$layer.addClass('hidden');
-                setTimeout(function () {
-                    self.$layer.removeClass('_start_anim');
-                },200);
+                self.closeLayer();
                 resoleve($(this).data('action'));
             });
-            //self.$layer.removeClass('_start_anim');
-            self.$layer.addClass('_start_anim');
-            setTimeout(function () {
-                self.$layer.removeClass('hidden');
-            },0);
-
+            self.showLayer();
+        });
+    },
+    menu: function(options){
+        var self = this.__, that = this;
+        self.$layer.addClass('_as_menu');
+        var $content_actions = self.$layer.find('.rx__flex_modal__layer__content__actionscontent');
+        if(typeof options === "object") {
+            if('items' in options && Array.isArray(options.items)){
+                $content_actions.html("");
+                options.items.map(function (item) {
+                    $content_actions.append('<button data-action="'+item.action+'">'+item.text+'</button>');
+                })
+            }
+        }
+        return new RxFlexModal.Promise(function (resoleve,reject) {
+            $content_actions.find('button').click(function (e) {
+                self.closeLayer();
+                resoleve($(this).data('action'));
+            });
+            self.showLayer();
         });
     },
     setSize: function () {

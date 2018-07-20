@@ -60,26 +60,28 @@ var page2 = new RxFlexModal.Layout({
 });
 var page3 = new RxFlexModal.Layout({
     popup_config: {
-        position: RxFlexModal.CONST.POSITION_CENTER,
+        position: RxFlexModal.CONST.POSITION_LEFT,
     },
     config: {
         permanently: true,
         header: {
             sticky: true,
             visible: true,
-            height: 120,
-            right: [
-                /*new RxFlexModal.HeaderButton({
+            height: 60,
+            left:[
+                new RxFlexModal.HeaderButton({
                     type: "icon",
                     icon: "sprtrx-icon-cancel",
                     dispatchEvent: "cancel_click",
                     ref: "cancelBtn"
-                }),*/
+                }),
+            ],
+            right: [
                 new RxFlexModal.HeaderButton({
-                    type: "button",
-                    text: "close",
-                    dispatchEvent: "cancel_click",
-                    ref: "cancelBtn2"
+                    type: "icon",
+                    icon: "sprtrx-icon-ellipsis-vert",
+                    dispatchEvent: "menu",
+                    ref: "menu"
                 })
             ]
         },
@@ -96,8 +98,8 @@ var page3 = new RxFlexModal.Layout({
                     "Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit." +
                     " Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. " +
                     "Ea exercitationem explicabo, ipsum laborum minus odio quidem similique sunt tempora totam? Amet delectus esse expedita illum ratione, repudiandae. A dignissimos ea esse ipsam " +
-                    "<input type='text'><br>"+
-                    "<textarea></textarea><br>"+
+                    "<input type='text'><br>" +
+                    "<textarea></textarea><br>" +
                     "laboriosam magni nesciunt nobis non quam quis quisquam quos, reiciendis soluta temporibus ut. Doloribus, eius, quod? Adipisci amet aperiam architecto aspernatur aut beatae " +
                     "cumque debitis delectus deleniti earum eius error ex, fugiat illo iste laborum natus quibusdam quidem quisquam quos rem repellendus vel voluptatem. Consequuntur deleniti" +
                     " dolores, doloribus eaque ex minus mollitia nulla numquam odio pariatur quae qui quibusdam repudiandae saepe suscipit veniam voluptas! Alias delectus deserunt, eius enim " +
@@ -111,17 +113,33 @@ var page3 = new RxFlexModal.Layout({
 
 
         Layout.on("cancel_click", function (e) {
-            /*Layout._actions.handleClose();*/
+
             RxFlexModal.alert({
-                text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea exercitationem explicabo ",
-                actions:[{text:"cancel",action:"cancel"},{text:"ok",action:"ok"}]
+                text: "Are you sure?",
+                actions: [{text: "cancel", action: "cancel"}, {text: "ok", action: "ok"}]
+            }).then(function (action) {
+                action === 'ok' && Layout._actions.handleClose();
+            })
+        });
+
+        Layout.on("menu", function (e) {
+            /*Layout._actions.handleClose();*/
+            RxFlexModal.menu({
+                items: [
+                    {text: "Lorem", action: "Lorem"},
+                    {text: "ipsum", action: "ipsum"},
+                    {text: "dolor", action: "dolor"},
+                    {text: "consectetur", action: "consectetur"},
+                    {text: "cancel", action: "cancel"},
+                    {text: "ok", action: "ok"}
+                ]
             }).then(function (action) {
                 console.log(action);
             })
         });
 
         Layout.on("user_item_click", function (e) {
-            RxFlexModal.alert( "Error on load content!").then(function (action) {
+            RxFlexModal.alert("Error on load content!").then(function (action) {
                 console.log(action);
                 Layout.loader.on();
                 setTimeout(function () {
@@ -132,29 +150,29 @@ var page3 = new RxFlexModal.Layout({
 
         });
 
-        Layout.$wrapper.on("click",'.push', function (e) {
+        Layout.$wrapper.on("click", '.push', function (e) {
             Layout.setSticky(false);
         });
 
-        Layout.getHeaderCenter().addClass('_shadow');
+        /*Layout.getHeaderCenter().addClass('_shadow');
         Layout.setHeaderCenter(
             new RxFlexModal.HorizontalScrollableElement({
-                ref:"peoples",
-                width:60,
-                items:["Kalys Rysmendeev","David Blabla","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5","test2","test3","test4","test5"],
+                ref: "peoples",
+                width: 60,
+                items: ["Kalys Rysmendeev", "David Blabla", "test3", "test4", "test5", "test2", "test3", "test4", "test5", "test2", "test3", "test4", "test5", "test2", "test3", "test4", "test5"],
                 renderItem: function (item) {
                     return `
                         <div class="user_item_55555">
                             <span class="user_item_55555_img"></span>
-                            
+
                              <span class="user_item_55555_name">${item}</span>
-                           
+
                         </div>
                         `;
                 },
-                dispatchEvent_item_click:"user_item_click"
+                dispatchEvent_item_click: "user_item_click"
             })
-        );
+        );*/
 
     },
 });

@@ -335,6 +335,8 @@ body.rx_flex_open.rx_modal_full_screen {
     left: 0;
     top: 0;
     overflow: auto;
+    padding: 10px;
+    box-sizing: border-box;
 }
 .rx__flex_modal__layer.hidden .rx__flex_modal__layer__content{
     opacity: 0;
@@ -344,8 +346,9 @@ body.rx_flex_open.rx_modal_full_screen {
     background:  #fff;
     min-height: 80px;
     display:  flex;
-    max-width: 80%;
-    min-width: 300px;
+    max-width: 600px;
+    min-width: 280px;
+    width: auto;
     border-radius:  8px;
     flex-direction: column;
     padding: 0;
@@ -394,4 +397,22 @@ body.rx_flex_open.rx_modal_full_screen {
 }
 .rx__flex_modal__layer__content__actionscontent button:last-child {
     border-right: none;
+}
+
+
+._as_menu .rx__flex_modal__layer__content__textcontent {
+    display:  none;
+}
+
+._as_menu .rx__flex_modal__layer__content__actionscontent {
+    flex-direction:  column;
+}
+
+._as_menu .rx__flex_modal__layer__content__actionscontent button {
+    border-right:  none;
+    border-bottom: 1px solid #ccc;
+}
+
+._as_menu .rx__flex_modal__layer__content__actionscontent button:last-child {
+    border-bottom: none;
 }
