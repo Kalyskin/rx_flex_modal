@@ -375,7 +375,6 @@ body.rx_flex_open.rx_modal_full_screen {
 }
 
 .rx__flex_modal__layer__content__actionscontent button {
-    flex: 1;
     background:  #fff;
     color:  #555;
     border-radius:  0;
@@ -385,6 +384,11 @@ body.rx_flex_open.rx_modal_full_screen {
     padding:  10px;
     outline: none;
     box-shadow: inset 0 0 8px #e8e8e8;
+    width: 100%;
+    cursor: pointer;
+    box-sizing: border-box;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .rx_modal_full_screen .rx__flex_modal__layer {
