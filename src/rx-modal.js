@@ -1,3 +1,16 @@
+(function(d){
+    var
+        ce=function(e,n){var a=document.createEvent("CustomEvent");a.initCustomEvent(n,true,true,e.target);e.target.dispatchEvent(a);a=null;return false},
+        nm=true,sp={x:0,y:0},ep={x:0,y:0},
+        touch={
+            touchstart:function(e){sp={x:e.touches[0].pageX,y:e.touches[0].pageY}},
+            touchmove:function(e){nm=false;ep={x:e.touches[0].pageX,y:e.touches[0].pageY}},
+            touchend:function(e){if(nm){ce(e,'fc')}else{var x=ep.x-sp.x,xr=Math.abs(x),y=ep.y-sp.y,yr=Math.abs(y);if(Math.max(xr,yr)>20){ce(e,(xr>yr?(x<0?'swl':'swr'):(y<0?'swu':'swd')))}};nm=true},
+            touchcancel:function(e){nm=false}
+        };
+    for(var a in touch){d.addEventListener(a,touch[a],false);}
+})(document);
+
 Rx_deepmerge = (function () {
     function isMergeableObject(val) {
         var nonNullObject = val && typeof val === 'object'
@@ -94,31 +107,31 @@ RxFlexModal = {
         self.close_on_backdrop_click = that.getConfig({}, 'popup_config.close_on_backdrop_click');
         self.$modal_backdrop.click(function (e) {
             if (self.close_on_backdrop_click) {
-                if($(e.target).closest('.rx__flex_modal').length === 0 && !$(e.target).hasClass('.rx__flex_modal')){
+                if ($(e.target).closest('.rx__flex_modal').length === 0 && !$(e.target).hasClass('.rx__flex_modal')) {
                     that.close();
                 }
             }
         });
-        self.closeLayer = function(){
+        self.closeLayer = function () {
             self.$layer.addClass('hidden');
             self.$layer.find('.rx__flex_modal__layer__content__textcontent').html("");
             setTimeout(function () {
                 self.$layer.removeClass('_start_anim').removeClass('_as_menu');
                 self.layer_active = false;
-            },200);
+            }, 200);
             setTimeout(function () {
                 self.layer_active = false;
-            },300);
+            }, 300);
         };
-        self.showLayer = function(){
+        self.showLayer = function () {
             self.$layer.addClass('_start_anim');
             setTimeout(function () {
                 self.$layer.removeClass('hidden');
                 self.layer_active = true;
-            },0);
+            }, 0);
         };
         self.$layer.click(function (e) {
-            if($(e.target).closest('.rx__flex_modal__layer__content').length === 0 && !$(e.target).hasClass('.rx__flex_modal__layer__content')){
+            if ($(e.target).closest('.rx__flex_modal__layer__content').length === 0 && !$(e.target).hasClass('.rx__flex_modal__layer__content')) {
                 self.closeLayer();
             }
         });
@@ -126,6 +139,7 @@ RxFlexModal = {
     },
     open: function (config) {
         var self = this.__, that = this;
+        self._open = true;
         self.scrollTop = window.scrollY;
         if (config instanceof RxFlexModal.Layout) {
             that.setPosition(that.getConfig(config.getMainConfig(), 'popup_config.position'));
@@ -138,7 +152,7 @@ RxFlexModal = {
         setTimeout(function () {
             self.$modal.addClass('open');
             self.$modal_backdrop.removeClass('__anim_start')
-        },0);
+        }, 0);
         self.$body.addClass('rx_flex_open');
         that.setSize();
         if (config instanceof RxFlexModal.Layout) {
@@ -158,28 +172,28 @@ RxFlexModal = {
             that.currentLayout.show();
         }
     },
-    alert: function(options){
+    alert: function (options) {
         var self = this.__, that = this;
         self.$layer.removeClass('_as_menu');
         var $content_text = self.$layer.find('.rx__flex_modal__layer__content__textcontent');
         var $content_actions = self.$layer.find('.rx__flex_modal__layer__content__actionscontent');
-        if(typeof options === "string"){
+        if (typeof options === "string") {
             $content_text.text(options);
             $content_actions.html('<button data-action="ok">ok</button>');
-        }else if(typeof options === "object") {
-            if('text' in options){
+        } else if (typeof options === "object") {
+            if ('text' in options) {
                 $content_text.html(options.text);
-            }else {
+            } else {
                 $content_text.html("  ");
             }
-            if('actions' in options && Array.isArray(options.actions)){
+            if ('actions' in options && Array.isArray(options.actions)) {
                 $content_actions.html("");
                 options.actions.map(function (item) {
-                    $content_actions.append('<button data-action="'+item.action+'">'+item.text+'</button>');
+                    $content_actions.append('<button data-action="' + item.action + '">' + item.text + '</button>');
                 })
             }
         }
-        return new RxFlexModal.Promise(function (resoleve,reject) {
+        return new RxFlexModal.Promise(function (resoleve, reject) {
             $content_actions.find('button').click(function (e) {
                 self.closeLayer();
                 resoleve($(this).data('action'));
@@ -187,19 +201,19 @@ RxFlexModal = {
             self.showLayer();
         });
     },
-    menu: function(options){
+    menu: function (options) {
         var self = this.__, that = this;
         self.$layer.addClass('_as_menu');
         var $content_actions = self.$layer.find('.rx__flex_modal__layer__content__actionscontent');
-        if(typeof options === "object") {
-            if('items' in options && Array.isArray(options.items)){
+        if (typeof options === "object") {
+            if ('items' in options && Array.isArray(options.items)) {
                 $content_actions.html("");
                 options.items.map(function (item) {
-                    $content_actions.append('<button data-action="'+item.action+'">'+item.text+'</button>');
+                    $content_actions.append('<button data-action="' + item.action + '">' + item.text + '</button>');
                 })
             }
         }
-        return new RxFlexModal.Promise(function (resoleve,reject) {
+        return new RxFlexModal.Promise(function (resoleve, reject) {
             $content_actions.find('button').click(function (e) {
                 self.closeLayer();
                 resoleve($(this).data('action'));
@@ -262,14 +276,14 @@ RxFlexModal = {
     },
     close: function () {
         var self = this.__, that = this;
-        console.log("on close");
+        self._open = false;
         self.$modal.removeClass('open').removeClass('full_screen');
         self.$body.removeClass('rx_flex_open');
         window.scrollTo(0, self.scrollTop || 0);
         self.$modal_backdrop.addClass('__anim_start');
         setTimeout(function () {
             self.$modal_backdrop.hide();
-        },300);
+        }, 300);
         self.layouts.map(function (_layout, index) {
             if (_layout.isPermanently()) {
                 _layout.detach();
@@ -312,13 +326,17 @@ RxFlexModal = {
                 tmp = tmp[prop];
         });
         return tmp;
+    },
+    isOpen: function () {
+        var self = this.__;
+        return self._open;
     }
 };
 RxFlexModal.CONST = {
     POSITION_LEFT: 1,
     POSITION_RIGHT: 2,
     POSITION_CENTER: 3,
-    TYPE_OF_COMPONENT_MODAL:111
+    TYPE_OF_COMPONENT_MODAL: 111
 };
 RxFlexModal.Layout = function (config) {
     var self = this,
@@ -409,7 +427,7 @@ RxFlexModal.Layout = function (config) {
             if (config.content_script && typeof config.content_script === 'function') {
                 config.content_script(self);
             }
-            if(self.$content.length && self.$content[0]) {
+            if (self.$content.length && self.$content[0]) {
                 self.$content[0].addEventListener('touchmove', function (e) {
                     self.$content.focus();
                 }, false);
@@ -542,10 +560,10 @@ RxFlexModal.Layout = function (config) {
 
     /*Methods*/
     self.setHeaderCenter = function (content) {
-        if(typeof content === 'object' && ('__typeofcomponent' in content) && content.__typeofcomponent === RxFlexModal.CONST.TYPE_OF_COMPONENT_MODAL){
+        if (typeof content === 'object' && ('__typeofcomponent' in content) && content.__typeofcomponent === RxFlexModal.CONST.TYPE_OF_COMPONENT_MODAL) {
             content.init(self, LayoutEvents);
             self.$header_center.html(content.html());
-        }else
+        } else
             self.$header_center.html(content);
     };
     self.setHeaderLeft = function (content) {
@@ -557,7 +575,7 @@ RxFlexModal.Layout = function (config) {
                     self.$header_left.append(el.html())
                 }
             });
-        }else {
+        } else {
             self.$header_left.html(content);
         }
     };
@@ -570,34 +588,41 @@ RxFlexModal.Layout = function (config) {
                     self.$header_right.append(el.html())
                 }
             });
-        }else {
+        } else {
             self.$header_right.html(content);
         }
     };
+    self.get_scroll_function = function () {
+        var header_height = self.getConfig(config.config, 'header.height'), prevPos = 0;
+        var scrollHeight = 0;
+        var __sticky = true;
+        return function () {
+            if (_sticky && __sticky) {
+                scrollHeight = this.scrollHeight - this.clientHeight;
+                var m = parseInt(self.$header.css('margin-top'));
+                if (this.scrollTop < scrollHeight) {
+                    if (this.scrollTop > 0) {
+                        self.$header.css('margin-top', Math.min(0, Math.max((header_height * (-1)), m - (this.scrollTop - prevPos))));
+                    } else {
+                        self.$header.css('margin-top', 0);
+                    }
+                } else {
+                    self.$header.css('margin-top', (header_height * (-1)));
+                }
+                prevPos = this.scrollTop;
+            }
+        }
+    };
+    self.returnHeader = function(){
+        self.$header.animate({'margin-top': 0},300);
+    };
+
     self.setSticky = function (sticky) {
         _sticky = sticky;
         if (_sticky) {
-            var header_height = self.getConfig(config.config, 'header.height'),prevPos = 0;
-            var scrollHeight = 0;
-            var __sticky = true;
-            self.$content.scroll(function(){
-                if(_sticky && __sticky) {
-                    scrollHeight = this.scrollHeight - this.clientHeight;
-                    var m = parseInt(self.$header.css('margin-top'));
-                    if(this.scrollTop < scrollHeight) {
-                        if(this.scrollTop > 0) {
-                            self.$header.css('margin-top', Math.min(0, Math.max((header_height * (-1)), m - (this.scrollTop - prevPos))));
-                        }else {
-                            self.$header.css('margin-top',0);
-                        }
-                    }else {
-                        self.$header.css('margin-top',(header_height * (-1)));
-                    }
-                    prevPos = this.scrollTop;
-                }
-            });
-        }else {
-            self.$header.css('margin-top',0);
+            self.$content.scroll(self.get_scroll_function());
+        } else {
+            self.$header.css('margin-top', 0);
         }
     };
 
@@ -620,7 +645,7 @@ RxFlexModal.Layout.defaultConfig = {
     config: {
         header: {
             visible: true,
-            sticky:false,
+            sticky: false,
             height: 70,
             title: "",
             close_button: false,
@@ -664,11 +689,36 @@ RxFlexModal.HorizontalScrollableElement = function (params) {
     this.init = function (Layout, LayoutEvents) {
         $html = $('<div class="rx__flex_modal__HorizontalScrollableElement"></div>');
 
-        if(typeof params.renderItem === 'function' && Array.isArray(params.items)){
-            params.items.map(function (item,index) {
+        if (typeof params.renderItem === 'function' && Array.isArray(params.items)) {
+            params.items.map(function (item, index) {
                 var $item = $('<div class="rx__flex_modal__HorizontalScrollableElement_item"></div>');
-                $item.css('width',params.width || 100);
-                $item.html(params.renderItem(item,index) || "");
+                $item.css('width', params.width || 100);
+                $item.html(params.renderItem(item, index) || "");
+                $item.click(function (e) {
+                    LayoutEvents.dispatch(params.dispatchEvent_item_click, e)
+                });
+                $html.append($item);
+            });
+        }
+        if ($html && params.ref) {
+            Layout.refs[params.ref] = $html;
+        }
+    };
+    this.html = function () {
+        return $html;
+    };
+
+    this.__typeofcomponent = RxFlexModal.CONST.TYPE_OF_COMPONENT_MODAL;
+};
+RxFlexModal.HeaderTab = function (params) {
+    var self = this, $html = null;
+    this.init = function (Layout, LayoutEvents) {
+        $html = $('<div class="rx__flex_modal__HeaderTab"></div>');
+
+        if (typeof params.renderItem === 'function' && Array.isArray(params.items)) {
+            params.items.map(function (item, index) {
+                var $item = $('<div class="rx__flex_modal__HeaderTab_item"></div>');
+                $item.html(params.renderItem(item, index) || "");
                 $item.click(function (e) {
                     LayoutEvents.dispatch(params.dispatchEvent_item_click, e)
                 });

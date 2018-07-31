@@ -29,6 +29,7 @@ body.rx_flex_open.rx_modal_full_screen {
     -moz-box-shadow: 0px 0px 5px #757474;
     box-shadow: 0px 0px 5px #757474;
     overflow: hidden;
+    z-index: 10;
 }
 
 .rx__flex_modal__content {
