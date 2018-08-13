@@ -369,6 +369,10 @@ RxFlexModal.Layout = function (config) {
         }
     };
 
+    self.dispatch = function(){
+        LayoutEvents.dispatch.apply(null,arguments);
+    };
+
     self.onBack = function (clback) {
         LayoutEvents.on("onBack", clback)
     };

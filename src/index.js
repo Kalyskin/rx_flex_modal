@@ -107,10 +107,10 @@ var page3 = new RxFlexModal.Layout({
         Layout.setContent(rxSwipeTab.getHtml());
 
 
-        Layout.on("cancel_click", function (e) {
+        Layout.on("cancel_click", function (text) {
 
             RxFlexModal.alert({
-                text: "Are you sure?",
+                text: text?text:"Are you sure?",
                 actions: [{text: "cancel", action: "cancel"}, {text: "ok", action: "ok"}]
             }).then(function (action) {
                 action === 'ok' && Layout._actions.handleClose();
