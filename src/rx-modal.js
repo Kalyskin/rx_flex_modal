@@ -189,14 +189,24 @@ RxFlexModal = {
             if ('actions' in options && Array.isArray(options.actions)) {
                 $content_actions.html("");
                 options.actions.map(function (item) {
-                    $content_actions.append('<button data-action="' + item.action + '">' + item.text + '</button>');
+                    var style = item.color?'style="color:'+item.color+';"':"";
+                    $content_actions.append('<button '+style+' data-action="' + item.action + '">' + item.text + '</button>');
                 })
             }
         }
         return new RxFlexModal.Promise(function (resoleve, reject) {
             $content_actions.find('button').click(function (e) {
+                var data = {};
+                $content_text.find('[name]').each(function () {
+                    data[$(this).attr('name')] = $(this).val();
+                });
+                if($content_text.find('[name]').length){
+                    data['action'] = $(this).data('action');
+                    resoleve(data);
+                }else {
+                    resoleve($(this).data('action'));
+                }
                 self.closeLayer();
-                resoleve($(this).data('action'));
             });
             self.showLayer();
         });

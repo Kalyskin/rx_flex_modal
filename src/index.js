@@ -110,10 +110,15 @@ var page3 = new RxFlexModal.Layout({
         Layout.on("cancel_click", function (text) {
 
             RxFlexModal.alert({
-                text: text?text:"Are you sure?",
-                actions: [{text: "cancel", action: "cancel"}, {text: "ok", action: "ok"}]
-            }).then(function (action) {
-                action === 'ok' && Layout._actions.handleClose();
+                text:$('<div class="sst_csf"></div>').append(
+                    $('<label for="sst_csf__label">Name category:</label>')
+                ).append(
+                    $('<input name="category_name" id="sst_csf__input_name" class="sst_csf__input_name"/>')
+                ),
+                actions: [{text: "cancel", action: "cancel",color:"#555"}, {text: "ok", action: "ok"}]
+            }).then(function (data) {
+                console.log(data);
+                data.action === 'ok' && Layout._actions.handleClose();
             })
         });
 
